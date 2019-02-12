@@ -191,9 +191,3 @@ spec:
            backend: 
              serviceName: nginx-ingress
              servicePort: 80
-     https:
-       paths:
-         - path: /
-           backend:
-             serviceName: nginx-ingress
-             servicePort: 443
