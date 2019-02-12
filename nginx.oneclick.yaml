@@ -167,3 +167,33 @@ spec:
     name: https
   selector:
     app: nginx-ingress
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: default-ingress
+ annotations:
+   nginx.ingress.kubernetes.io/rewrite-target: /
+   kubernetes.io/tls-acme: "true"
+   ingress.kubernetes.io/secure-backends: "true"
+ namespace: default
+spec:
+ tls:
+   - hosts:
+     - myhost.io
+     secretName: tls-secret
+ rules:
+   - host: myhost.io
+     http: 
+       paths:
+         - path: /
+           backend: 
+             serviceName: nginx-ingress
+             servicePort: 80
+     https:
+       paths:
+         - path: /
+           backend:
+             serviceName: nginx-ingress
+             servicePort: 443
