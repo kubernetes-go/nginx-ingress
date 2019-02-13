@@ -32,4 +32,17 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes-go/nginx-ingress
 ```sh
 $ sudo cp kube-cluster-domain.crt /usr/local/share/ca-certificates/myhost.io.crt
 $ sudo update-ca-certificates --fresh
+$ curl https://myhost.io
+```
+
+
+## 5. access externally
+
+```sh
+$ kubectl get svc | grep nginx
+
+> nginx-ingress   NodePort    10.96.185.164   <none>        80:32323/TCP,443:31585/TCP   3h4m
+
+$ kubectl port-forward svc/nginx-ingress 80:80
+$ kubectl port-forward svc/nginx-ingress 443:443
 ```
